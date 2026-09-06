@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="StackNova Resource Hub — Jobs, AI, Learning, Coding and Career resources.">
+<title>StackNova — Resource Hub</title>
+<style>
+:root{
+  --bg:#f6f7fb;--card:rgba(255,255,255,.92);--text:#11152d;--muted:#68708a;
+  --primary:#635bff;--primary2:#8b5cf6;--line:#e8e9f1;--shadow:0 12px 35px rgba(26,31,65,.08);
+  --radius:20px
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+radial-gradient(circle at 5% 0%,#e8e7ff 0,transparent 30%),radial-gradient(circle at 95% 5%,#eee7ff 0,transparent 25%),var(--bg);
+color:var(--text);min-height:100vh}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{width:min(760px,calc(100% - 28px));margin:auto;padding:25px 0 40px}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit}
+.logo{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;color:white;font-weight:900;font-size:20px;
+background:linear-gradient(135deg,var(--primary),var(--primary2));box-shadow:0 10px 25px rgba(99,91,255,.25)}
+.brand strong{font-size:20px;letter-spacing:-.5px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:1px}
+.menu{border:0;background:white;width:42px;height:42px;border-radius:13px;font-size:22px;box-shadow:0 5px 20px rgba(0,0,0,.05)}
+.hero{padding:12px 2px 22px}
+.eyebrow{color:var(--primary);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.hero h1{font-size:clamp(34px,8vw,52px);line-height:1.03;letter-spacing:-2px;max-width:600px}
+.hero h1 span{color:var(--primary)}
+.hero p{color:var(--muted);line-height:1.6;margin-top:13px;max-width:590px}
+.search{position:relative;margin:10px 0 15px}
+.search input{width:100%;padding:16px 18px 16px 48px;border:1px solid var(--line);border-radius:17px;background:white;outline:none;box-shadow:0 8px 25px rgba(17,24,39,.05);color:var(--text)}
+.search input:focus{border-color:#aaa6ff;box-shadow:0 0 0 4px rgba(99,91,255,.1)}
+.search .glass{position:absolute;left:17px;top:12px;font-size:21px;color:#7b8197}
+.filters{display:flex;gap:8px;overflow-x:auto;padding:2px 1px 9px;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter{border:1px solid var(--line);background:white;color:#3e455b;padding:9px 14px;border-radius:999px;white-space:nowrap;font-size:13px;transition:.2s}
+.filter:hover{transform:translateY(-1px)}
+.filter.active{background:var(--primary);color:white;border-color:var(--primary)}
+.section-head{display:flex;align-items:end;justify-content:space-between;margin:20px 2px 12px}
+.section-head h2{font-size:20px;letter-spacing:-.5px}.section-head button{border:0;background:transparent;color:var(--primary);font-weight:700}
+.resources{display:grid;gap:13px}
+.card{position:relative;display:flex;align-items:center;gap:14px;text-decoration:none;color:inherit;padding:16px;background:var(--card);
+border:1px solid rgba(232,233,241,.95);border-radius:var(--radius);box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s,border-color .2s}
+.card:hover{transform:translateY(-3px);box-shadow:0 20px 45px rgba(26,31,65,.13);border-color:#d9d7ff}
+.icon{flex:0 0 55px;width:55px;height:55px;border-radius:17px;display:grid;place-items:center;font-size:27px;background:#efeeff}
+.card:nth-child(3n+2) .icon{background:#e9fbf5}.card:nth-child(3n) .icon{background:#fff0f2}
+.content{min-width:0;flex:1}.title{font-weight:800;font-size:16px;line-height:1.3}
+.desc{font-size:13px;color:var(--muted);line-height:1.45;margin-top:4px}
+.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.badge{font-size:10px;padding:4px 8px;border-radius:999px;background:#f0f1f6;color:#5c6378}
+.badge.new{background:#ffe7ec;color:#e52d55;font-weight:800}
+.arrow{font-size:25px;color:#9aa0b4;padding-left:4px}
+.empty{text-align:center;color:var(--muted);padding:42px 10px;display:none}
+.quote{margin-top:25px;padding:20px;border-radius:20px;background:linear-gradient(135deg,#eceaff,#f5f0ff);text-align:center;color:#4f46b8;font-weight:700;line-height:1.5}
+footer{text-align:center;color:#9aa0b4;font-size:12px;margin-top:28px;line-height:1.6}
+.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#11152d;color:white;padding:11px 15px;border-radius:999px;font-size:13px;transition:.25s;z-index:10}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:520px){.app{padding-top:18px}.hero h1{letter-spacing:-1.5px}.card{padding:14px}.icon{width:49px;height:49px;flex-basis:49px}.brand strong{font-size:18px}}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <a class="brand" href="#">
+      <div class="logo">SN</div>
+      <div><strong>StackNova</strong><small>Learn • Build • Grow</small></div>
+    </a>
+    <button class="menu" aria-label="Share page" onclick="sharePage()">↗</button>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Resource Hub</div>
+    <h1>Your One-Stop <span>Resource Hub</span></h1>
+    <p>Handpicked resources for Jobs, Learning, AI, Technology and Career Growth.</p>
+  </section>
+
+  <div class="search">
+    <span class="glass">⌕</span>
+    <input id="search" type="search" placeholder="Search resources..." autocomplete="off">
+  </div>
+
+  <nav class="filters" id="filters" aria-label="Resource categories"></nav>
+
+  <div class="section-head">
+    <h2>Latest Resources</h2>
+    <button onclick="showAll()">See All →</button>
+  </div>
+
+  <main class="resources" id="resources"></main>
+  <div class="empty" id="empty">No matching resources found.</div>
+
+  <div class="quote">“Learn new skills. Create new opportunities.”<br><span>— StackNova</span></div>
+
+  <footer>© <span id="year"></span> StackNova · All rights reserved.</footer>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/*
+  ===========================
+  EDIT YOUR RESOURCES HERE
+  ===========================
+  Add a new object for every new Reel/resource.
+
+  title       = resource title
+  category    = Jobs / AI / Study / Coding / Career / Tools
+  description = short explanation
+  link        = destination URL
+  icon        = emoji
+  isNew       = true/false
+  tags        = optional extra search words
+*/
+const resources = [
+  {
+    title:"TCS Hiring 2026",
+    category:"Jobs",
+    description:"Check eligibility, important dates and the official application link.",
+    link:"https://www.tcs.com/careers",
+    icon:"💼",
+    isNew:true,
+    tags:"tcs hiring recruitment jobs"
+  },
+  {
+    title:"100+ ChatGPT Prompts",
+    category:"AI",
+    description:"Boost your productivity with powerful ChatGPT prompts.",
+    link:"https://chatgpt.com/",
+    icon:"🤖",
+    isNew:true,
+    tags:"chatgpt ai prompts artificial intelligence"
+  },
+  {
+    title:"SSC JE 2026",
+    category:"Jobs",
+    description:"Find the notification, eligibility, syllabus and application information.",
+    link:"https://ssc.gov.in/",
+    icon:"📄",
+    isNew:false,
+    tags:"ssc je government job notification"
+  },
+  {
+    title:"Free Study Material",
+    category:"Study",
+    description:"Access notes, previous-year questions and useful learning resources.",
+    link:"https://example.com/study-material",
+    icon:"📚",
+    isNew:false,
+    tags:"education notes study material"
+  },
+  {
+    title:"Web Development Roadmap",
+    category:"Coding",
+    description:"A practical step-by-step roadmap to become a web developer.",
+    link:"https://developer.mozilla.org/",
+    icon:"</>",
+    isNew:false,
+    tags:"html css javascript coding web development"
+  },
+  {
+    title:"Useful AI Tools",
+    category:"Tools",
+    description:"Explore useful AI and productivity tools for students and professionals.",
+    link:"https://example.com/ai-tools",
+    icon:"🛠️",
+    isNew:false,
+    tags:"tools ai productivity software"
+  }
+];
+
+let activeCategory="All";
+
+const $ = id => document.getElementById(id);
+
+function categories(){
+  return ["All", ...new Set(resources.map(r=>r.category).filter(Boolean))];
+}
+
+function renderFilters(){
+  $("filters").innerHTML = categories().map(c =>
+    `<button class="filter ${c===activeCategory?"active":""}" onclick="setCategory('${escapeAttr(c)}')">${escapeHTML(c)}</button>`
+  ).join("");
+}
+
+function setCategory(category){
+  activeCategory=category;
+  renderFilters();
+  render();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function showAll(){
+  activeCategory="All";
+  $("search").value="";
+  renderFilters();
+  render();
+}
+
+function render(){
+  const q=$("search").value.trim().toLowerCase();
+
+  const filtered=resources.filter(r=>{
+    const hay=[r.title,r.category,r.description,r.tags||""].join(" ").toLowerCase();
+    return (activeCategory==="All" || r.category===activeCategory) && (!q || hay.includes(q));
+  });
+
+  $("resources").innerHTML=filtered.map(r=>`
+    <a class="card" href="${safeURL(r.link)}" target="_blank" rel="noopener noreferrer">
+      <div class="icon">${escapeHTML(r.icon||"🔗")}</div>
+      <div class="content">
+        <div class="title">${escapeHTML(r.title)}</div>
+        <div class="desc">${escapeHTML(r.description)}</div>
+        <div class="meta">
+          <span class="badge">${escapeHTML(r.category)}</span>
+          ${r.isNew?'<span class="badge new">NEW</span>':""}
+        </div>
+      </div>
+      <div class="arrow">›</div>
+    </a>
+  `).join("");
+
+  $("empty").style.display=filtered.length?"none":"block";
+}
+
+$("search").addEventListener("input",render);
+
+function sharePage(){
+  const data={title:"StackNova Resource Hub",text:"Check out the StackNova Resource Hub!",url:location.href};
+  if(navigator.share) navigator.share(data).catch(()=>{});
+  else {
+    navigator.clipboard?.writeText(location.href);
+    toast("Page link copied!");
+  }
+}
+
+function toast(message){
+  const t=$("toast"); t.textContent=message; t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"),2200);
+}
+
+function escapeHTML(value){
+  return String(value??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function escapeAttr(value){return String(value).replace(/'/g,"&#039;");}
+function safeURL(value){
+  try{
+    const u=new URL(value,location.href);
+    return ["http:","https:"].includes(u.protocol)?u.href:"#";
+  }catch{return "#";}
+}
+
+$("year").textContent=new Date().getFullYear();
+renderFilters();
+render();
+</script>
+</body>
+</html>
